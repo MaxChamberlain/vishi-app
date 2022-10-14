@@ -280,8 +280,9 @@ export default function PalletTracker(){
                             {option.key}
                         </div>
                     )}
+                    value={filters}
                     renderInput={params => (
-                        <TextField {...params} label='SKU' variant='outlined' style={{ color: 'white', width: '100%' }} value={filters} onChange={e => setFilters(e.target.value.toUpperCase())}/>
+                        <TextField {...params} label={filters || 'SKU'} variant='outlined' style={{ color: 'white', width: '100%' }} defaultValue={filters} value={filters} onChange={e => setFilters(e.target.value.toUpperCase())}/>
                     )}
                     freeSolo
                 />
