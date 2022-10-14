@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {isMobile} from 'react-device-detect';
-import { Button, Autocomplete, InputLabel, FormControl, TextField } from '@mui/material'
+import { Button, Autocomplete, InputLabel, FormControl, TextField, Paper } from '@mui/material'
 
 export default function PalletTracker(){
     const [ usedPallets, setUsedPallets ] = useState({})
@@ -262,9 +262,19 @@ export default function PalletTracker(){
                             ))
                         )    
                     ).flat()).flat().map(e => e.items).flat())]}
-                    onSelect={(e) => {
-                        setFilters(e.target.value)
+                    PaperComponent={children => {
+                        return (
+                            <Paper {...children} style={{ backgroundColor: 'rgb(46, 52, 64)', color: 'white' }} />
+                        )
                     }}
+                    renderOption={(option) => (
+                        <div style={{ color: 'white', zIndex: 9999 }} onClick={() => setFilters(option.key)}
+                            className='p-1 pl-2 cursor-pointer hover:bg-slate-600 text-white'
+                        >
+                            {option.key}
+                        </div>
+                    )}
+                    value={filters}
                     renderInput={params => (
                         <TextField {...params} label='SKU' variant='outlined' style={{ color: 'white', width: '100%' }} value={filters} onChange={e => setFilters(e.target.value.toUpperCase())}/>
                     )}
