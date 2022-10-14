@@ -11,3 +11,53 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+*{
+  transition-duration: color 0.2s, opacity 0.2s;
+}
+
+.request-pull-item-enter {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+.request-pull-item-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s;
+}
+.request-pull-item-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.request-pull-item-exit-active {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: all 0.5s;
+}
+
+.right-menu-enter{
+  opacity: 0;
+  transform: translateX(100%);
+}
+.right-menu-enter-active{
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.5s;
+}
+.right-menu-exit{
+  opacity: 1;
+  transform: translateX(0);
+}
+.right-menu-exit-active{
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.5s;
+}

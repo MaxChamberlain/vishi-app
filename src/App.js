@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/header/Header";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import RequestAnItem from "./pages/RequestAnItem/RequestAnItem";
+import RestockARequest from "./pages/RestockARequest/RestockARequest";
+import Login from "./pages/Login/Login";
+import Barcodes from "./pages/Barcodes/Barcodes";
+import PalletTracker from "./pages/PalletTracker/PalletTracker";
 
 function App() {
+  const [ loggedIn, setLoggedIn ] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem('_vishi:@user_info') && JSON.parse(localStorage.getItem('_vishi:@user_info'));
+    if(userInfo){
+      setLoggedIn(true);
+      if(location.pathname === '/login' || location.pathname === '/register'){
+        window.location.href = '/';
+      }
+    }else{
+      setLoggedIn(false);
+      if(location.pathname !== '/login' && location.pathname !== '/register'){
+        window.location.href='/login';
+      }
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div style={{
+        backgroundColor: '#1a202c',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: -1
+      }}></div>
+      {location.pathname !== '/login' && location.pathname !== '/register' && <Header />}
+      <Routes>
+        <Route path="/login" element={<Login /> } />
+        <Route path='/' element={<Navigate to='/inventory/restocks/view' />} />
+        <Route path='/inventory/restocks/create' element={<RequestAnItem /> } />
+        <Route path='/inventory/restocks/view' element={<RestockARequest /> } />
+        <Route path='/inventory/barcodes' element={<Barcodes /> } />
+        <Route path='/inventory/pallets' element={<PalletTracker /> } />
+      </Routes>
     </div>
   );
 }
