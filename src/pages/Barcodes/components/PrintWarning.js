@@ -15,7 +15,7 @@ export default function PrintWarning({ selected, handlePrint, setSelected, setPr
                 {selected.filter(e => e.archived).length > 0 && <div className='text-lg mb-4 text-red-400'>Archived SKUS</div>}
                 {
                 [...new Set(selected
-                    .map(e => e.sku.split('-')[e.sku.split('-').length - 1] === e.size ? e.sku.split('-').slice(0, e.sku.split('-').length - 1).join('-') : e.sku))].map((e, i) => 
+                    .map(e => e.sku))].map((e, i) => 
                         <div key={i} className='text-lg mb-2'>{e}</div>
                     )
                 }
