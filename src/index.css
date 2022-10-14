@@ -69,3 +69,7 @@ code {
 .MuiOutlinedInput-notchedOutline{
   border-color: #fff !important;
 }
+
+.MuiInputBase-input{
+  color: #fff !important;
+}
