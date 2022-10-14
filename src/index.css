@@ -61,3 +61,11 @@ code {
   transform: translateX(100%);
   transition: all 0.5s;
 }
+
+#sku-label{
+  color: #fff;
+}
+
+.MuiOutlinedInput-notchedOutline{
+  border-color: #fff !important;
+}

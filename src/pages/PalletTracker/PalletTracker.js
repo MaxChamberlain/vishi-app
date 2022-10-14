@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {isMobile} from 'react-device-detect';
-import { Button } from '@mui/material'
+import { Button, Autocomplete, InputLabel, FormControl, TextField } from '@mui/material'
 
 export default function PalletTracker(){
     const [ usedPallets, setUsedPallets ] = useState({})
@@ -245,14 +245,32 @@ export default function PalletTracker(){
             display: 'flex',
             justifyContent: 'space-between',
             color: 'white',
-            fontSize: 20
+            fontSize: 20,
         }}>
-            <input style={{
-                fontSize: 25,
-            }}
-                placeholder="SKU"
-                onChange={e => setFilters(e.target.value.toUpperCase())}
-            />
+            <FormControl style={{ width: '50%', color: 'white' }}>
+                <Autocomplete style={{
+                    fontSize: 25,
+                    color: 'white',
+                    width: '100%',
+                }}
+                    id='sku'
+                    includeInputInList
+                    options={[...new Set(Object.keys(usedPallets).map(a => 
+                        Object.keys(usedPallets[a]).map(b => (
+                            Object.keys(usedPallets[a][b]).map(c => (
+                                usedPallets[a][b][c]
+                            ))
+                        )    
+                    ).flat()).flat().map(e => e.items).flat())]}
+                    onSelect={(e) => {
+                        setFilters(e.target.value)
+                    }}
+                    renderInput={params => (
+                        <TextField {...params} label='SKU' variant='outlined' style={{ color: 'white', width: '100%' }} value={filters} onChange={e => setFilters(e.target.value.toUpperCase())}/>
+                    )}
+                    freeSolo
+                />
+            </FormControl>
             {Object.keys(displayedPallets).length > 0 && [['Racks', 'racks'], ['Event Space', 'event'], ['Bay Doors', 'bay']].map(e => {
                 return(
                     <div style={{
