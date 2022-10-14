@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const getProducts = async (skuInput, setItems, setLoading) => {
+export const getProducts = async (skuInput, setItems, setLoading) => {
     try{
       setLoading(true);
       const { data } = await axios.post(
@@ -20,8 +20,4 @@ const getProducts = async (skuInput, setItems, setLoading) => {
     }catch(e){
         console.log(e)
     }
-}
-
-module.exports = {
-    getProducts
 }
