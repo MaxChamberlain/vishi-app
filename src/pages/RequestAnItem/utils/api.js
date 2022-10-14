@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export async function getProducts (skuInput, setItems, setLoading) {
+const getProducts = async (skuInput, setItems, setLoading) => {
     try{
       setLoading(true);
       const { data } = await axios.post(
@@ -22,7 +22,7 @@ export async function getProducts (skuInput, setItems, setLoading) {
     }
   }
 
-export async function submitRequest (sku, item_name, priority, quantity_needed, bin, setBin, setQty, setSelected, setPriority ) {
+  const submitRequest = async (sku, item_name, priority, quantity_needed, bin, setBin, setQty, setSelected, setPriority ) => {
     const company = 'Vitality'
     const submitter = await JSON.parse(localStorage.getItem('_vishi:@user_info')).name
     const status = 'open'
@@ -57,4 +57,9 @@ export async function submitRequest (sku, item_name, priority, quantity_needed, 
     }catch(e){
         console.log(e)
     }
+  }
+
+  module.exports = {
+    getProducts,
+    submitRequest
   }

@@ -1,7 +1,7 @@
 import { Input, InputLabel, FormHelperText, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { getProducts, submitRequest } from './utils/api';
+const { getProducts, submitRequest } = require('./utils/api.js');
 
 export default function RequestAnItem(){
     const [ loading, setLoading ] = useState(false);
