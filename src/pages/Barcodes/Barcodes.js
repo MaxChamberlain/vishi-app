@@ -1,11 +1,11 @@
 import { FormControl, InputLabel, MenuItem, Select, Input, Button, FormHelperText } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { getProducts } from './utils/api';
 import ItemList from './components/ItemList';
 import PrintWarning from './components/PrintWarning';
 import Barcode from 'react-barcode/lib/react-barcode';
 import History from './components/History';
 import { handlePrint } from './utils/print';
+const { getProducts } = require('./utils/api.js');
 
 export default function Barcodes(){
     const [ inputSku, setInputSku ] = useState('');
