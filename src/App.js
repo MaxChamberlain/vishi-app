@@ -6,6 +6,8 @@ import RestockARequest from "./pages/RestockARequest/RestockARequest";
 import Login from "./pages/Login/Login";
 import Barcodes from "./pages/Barcodes/Barcodes";
 import PalletTracker from "./pages/PalletTracker/PalletTracker";
+import Home from "./pages/Home/Home";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   const [ loggedIn, setLoggedIn ] = useState(false);
@@ -39,14 +41,16 @@ function App() {
         zIndex: -1
       }}></div>
       {location.pathname !== '/login' && location.pathname !== '/register' && <Header />}
-      <Routes>
-        <Route path="/login" element={<Login /> } />
-        <Route path='/' element={<Navigate to='/inventory/restocks/view' />} />
-        <Route path='/inventory/restocks/create' element={<RequestAnItem /> } />
-        <Route path='/inventory/restocks/view' element={<RestockARequest /> } />
-        <Route path='/inventory/barcodes' element={<Barcodes /> } />
-        <Route path='/inventory/pallets' element={<PalletTracker /> } />
-      </Routes>
+      <AnimatePresence exitBeforeEnter>
+        <Routes key={location.pathname} >
+          <Route path="/login" element={<Login /> } />
+          <Route path='/' element={<Home />} />
+          <Route path='/inventory/restocks/create' element={<RequestAnItem /> } />
+          <Route path='/inventory/restocks/view' element={<RestockARequest /> } />
+          <Route path='/inventory/barcodes' element={<Barcodes /> } />
+          <Route path='/inventory/pallets' element={<PalletTracker /> } />
+        </Routes>
+      </AnimatePresence>
     </div>
   );
 }

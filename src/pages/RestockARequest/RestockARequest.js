@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
+import { motion } from 'framer-motion';
 const { getRequests, updateItem } = require('./utils/api');
 
 export default function RestockARequest(){
@@ -23,7 +24,12 @@ export default function RestockARequest(){
         return <div>Loading...</div>
     }
     return(
-        <div>
+        <motion.div 
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.3}}
+        >
             {(requests && requests.new && requests.new.length > 0) ?
                 <div 
                     className="w-screen p-12"
@@ -133,7 +139,7 @@ export default function RestockARequest(){
                     Good job, {JSON.parse(localStorage.getItem('_vishi:@user_info')).name.split(' ')[0]}! This queue is empty 🎉
                 </div>
             }
-        </div>
+        </motion.div>
     )
     
 }

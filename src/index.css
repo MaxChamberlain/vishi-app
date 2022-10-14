@@ -73,3 +73,87 @@ code {
 .MuiInputBase-input{
   color: #fff !important;
 }
+
+.scale-up-fade-enter {
+  opacity: 0;
+  transform: scale(0.5);
+  z-index: 9999;
+}
+.scale-up-fade-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.1s;
+  z-index: 9999;
+}
+.scale-up-fade-exit {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 9999;
+}
+.scale-up-fade-exit-active {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.1s;
+  z-index: 9999;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: all 0.2s;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.right-to-left-fade-enter {
+  opacity: 0;
+  transform: translateX(100%);
+  z-index: 1;
+}
+.right-to-left-fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.1s;
+  z-index: 1;
+}
+.right-to-left-fade-exit {
+  opacity: 1;
+  z-index: 1;
+  transform: translateX(0);
+}
+.right-to-left-fade-exit-active {
+  opacity: 0;
+  z-index: 1;
+  transform: translateX(100%);
+  transition: all 0.1s;
+}
+
+.top-down-fade-enter {
+  opacity: 0;
+  transform: translateY(-100px);
+  z-index: -1;
+}
+.top-down-fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.1s;
+  z-index: -1;
+}
+.top-down-fade-exit {
+  opacity: 1;
+  z-index: -1;
+  transform: translateY(0);
+}
+.top-down-fade-exit-active {
+  opacity: 0;
+  z-index: -1;
+  transform: translateY(-100px);
+  transition: all 0.1s;
+}

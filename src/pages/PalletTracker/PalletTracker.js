@@ -4,6 +4,7 @@ import axios from 'axios'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {isMobile} from 'react-device-detect';
 import { Button, Autocomplete, InputLabel, FormControl, TextField, Paper } from '@mui/material'
+import { motion } from 'framer-motion';
 
 export default function PalletTracker(){
     const [ usedPallets, setUsedPallets ] = useState({})
@@ -123,7 +124,12 @@ export default function PalletTracker(){
     }
 
     return(
-        <>
+        <motion.div 
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.3}}
+        >
         <TransitionGroup component='div'>
             {hovering && 
                 <CSSTransition timeout={800} classNames='fade-blur'>
@@ -274,7 +280,6 @@ export default function PalletTracker(){
                             {option.key}
                         </div>
                     )}
-                    value={filters}
                     renderInput={params => (
                         <TextField {...params} label='SKU' variant='outlined' style={{ color: 'white', width: '100%' }} value={filters} onChange={e => setFilters(e.target.value.toUpperCase())}/>
                     )}
@@ -723,7 +728,7 @@ export default function PalletTracker(){
 
             })}
         </div>
-    </>
+    </motion.div>
     )
 
     async function getPallets(){

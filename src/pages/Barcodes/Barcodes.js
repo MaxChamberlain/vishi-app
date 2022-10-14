@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { FormControl, InputLabel, MenuItem, Select, Input, Button, FormHelperText } from '@mui/material';
 import { useState, useEffect } from 'react';
 import ItemList from './components/ItemList';
@@ -16,7 +17,12 @@ export default function Barcodes(){
     const [ history, setHistory ] = useState([]);
 
     return(
-        <div>
+        <motion.div 
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.3}}
+        >
 
             <div id='printable-content' style={{
                 position: 'absolute',
@@ -100,6 +106,6 @@ export default function Barcodes(){
             {printing && <PrintWarning selected={selected} handlePrint={handlePrint} setSelected={setSelected} setPrinting={setPrinting} />}
             {returnItems.length > 0 && <ItemList selected={selected} data={returnItems} loading={loading} setSelected={setSelected} setHistory={setHistory} />}
             {history.length > 0 && <History data={history} setHistory={setHistory} />}
-        </div>
+        </motion.div>
     )
 }

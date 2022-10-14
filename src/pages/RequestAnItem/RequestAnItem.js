@@ -1,6 +1,7 @@
 import { Input, InputLabel, FormHelperText, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition, Transition } from 'react-transition-group';
+import { motion } from 'framer-motion';
 const { getProducts, submitRequest } = require('./utils/api.js');
 
 export default function RequestAnItem(){
@@ -13,15 +14,6 @@ export default function RequestAnItem(){
     const [ qty, setQty ] = useState(null);
     const [ priority, setPriority ] = useState(1);
 
-    const classes = {
-        root: {
-          background: "white"
-        },
-        input: {
-          color: "white"
-        }
-      };
-
       useEffect(() => {
         const handleResize = () => {
           setHeight(window.innerHeight);
@@ -33,81 +25,93 @@ export default function RequestAnItem(){
       }, [])
 
     return(
-        <div className='w-screen'>
-            {selected && 
+        <motion.div 
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.3}}
+            className='w-screen'
+        >
+            <TransitionGroup component='div'>
                 <>
-                    <div 
-                        className='fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-50'
-                        onClick={() => setSelected(null)}
-                    >
-                    </div>
-                    <div className='fixed z-[9900] bg-slate-700 text-white p-4 rounded left-1/2 -translate-x-1/2 mt-24 w-fit'>
-                        <div className='text-center text-2xl mb-4 font-bold'>
-                            Is This Right?
-                        </div>
-                        <div className='text-center text-xl'>
-                            {selected.Name}
-                        </div>
-                        <div className='text-center text-xl'>
-                            {selected.SKU}
-                        </div>
-                        <div className='flex justify-around w-full my-4'>
-                            <FormControl style={{ width: '100%' }}>
-                                <InputLabel htmlFor='submit-bin' style={{ color: 'white' }}>Bin Number</InputLabel>
-                                <Input 
-                                    autoFocus
-                                    color={'primary'}
-                                    fullWidth
-                                    style={{color: 'white'}}
-                                    id='submit-bin'
-                                    onChange={(e) => setBin(e.target.value)}
-                                    value={bin}
-                                    required
-                                />
-                            </FormControl>
-                        </div>
-                        <div className='flex justify-around w-full my-4'>
-                            <FormControl style={{ width: '100%' }}>
-                                <InputLabel htmlFor='submit-qty' style={{ color: 'white' }}>How Many?</InputLabel>
-                                <Input 
-                                    color={'primary'}
-                                    fullWidth
-                                    style={{color: 'white'}}
-                                    id='submit-qty'
-                                    onChange={(e) => setQty(e.target.value)}
-                                    value={qty}
-                                    required
-                                />
-                            </FormControl>
-                        </div>
-                        <div className='flex justify-around w-full my-4 z-[9996] '>
-                            <FormControl style={{ width: '100%', zIndex: 9996 }}>
-                                <InputLabel className='bg-slate-700' htmlFor='submit-priority' style={{ color: 'white', zIndex: 9999 }}>Priority?</InputLabel>
-                                <Select MenuProps={{ style: {zIndex: 10000, color: 'white'} }}
-                                    style={{color: 'white', zIndex: 9998}}
-                                    onChange={(e) => setPriority(e.target.value)}
-                                    value={priority}
-                                >
-                                    <MenuItem value={1}>In My Pick</MenuItem>
-                                    <MenuItem value={2}>Took Last One</MenuItem>
-                                    <MenuItem value={3}>Bin Low</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <Button 
-                            variant='contained'
-                            color='primary'
-                            style={{ width: '100%' }}
-                            onClick={() => {
-                                submitRequest(selected.SKU, selected.Name, priority, qty, bin, setBin, setQty, setSelected, setPriority);
-                            }}
+                    <CSSTransition timeout={200} classNames='fade' in={selected} appear unmountOnExit>
+                        <div 
+                            className='fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-50'
+                            onClick={() => setSelected(null)}
                         >
-                            Submit
-                        </Button>
-                    </div>
+                        </div>
+                    </CSSTransition>
+                    <CSSTransition timeout={200} classNames='scale-up-fade' in={selected} appear unmountOnExit>
+                        <div className='absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center'>
+                            <div className='fixed z-[9990] bg-slate-700 text-white p-4 rounded mt-24 w-fit'>
+                                <div className='text-center text-2xl mb-4 font-bold'>
+                                    Is This Right?
+                                </div>
+                                <div className='text-center text-xl'>
+                                    {selected?.Name}
+                                </div>
+                                <div className='text-center text-xl'>
+                                    {selected?.SKU}
+                                </div>
+                                <div className='flex justify-around w-full my-4'>
+                                    <FormControl style={{ width: '100%' }}>
+                                        <InputLabel htmlFor='submit-bin' style={{ color: 'white' }}>Bin Number</InputLabel>
+                                        <Input 
+                                            autoFocus
+                                            color={'primary'}
+                                            fullWidth
+                                            style={{color: 'white'}}
+                                            id='submit-bin'
+                                            onChange={(e) => setBin(e.target.value)}
+                                            value={bin}
+                                            required
+                                        />
+                                    </FormControl>
+                                </div>
+                                <div className='flex justify-around w-full my-4'>
+                                    <FormControl style={{ width: '100%' }}>
+                                        <InputLabel htmlFor='submit-qty' style={{ color: 'white' }}>How Many?</InputLabel>
+                                        <Input 
+                                            color={'primary'}
+                                            fullWidth
+                                            style={{color: 'white'}}
+                                            id='submit-qty'
+                                            onChange={(e) => setQty(e.target.value)}
+                                            value={qty}
+                                            required
+                                        />
+                                    </FormControl>
+                                </div>
+                                <div className='flex justify-around w-full my-4 z-[9996] '>
+                                    <FormControl style={{ width: '100%', zIndex: 9996 }}>
+                                        <InputLabel className='bg-slate-700' htmlFor='submit-priority' style={{ color: 'white', zIndex: 9999 }}>Priority?</InputLabel>
+                                        <Select MenuProps={{ style: {zIndex: 10000, color: 'white'} }}
+                                            style={{color: 'white', zIndex: 9998}}
+                                            onChange={(e) => setPriority(e.target.value)}
+                                            value={priority}
+                                        >
+                                            <MenuItem value={1}>In My Pick</MenuItem>
+                                            <MenuItem value={2}>Took Last One</MenuItem>
+                                            <MenuItem value={3}>Bin Low</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                                <Button 
+                                    variant='contained'
+                                    color='primary'
+                                    style={{ width: '100%' }}
+                                    onClick={() => {
+                                        submitRequest(selected.SKU, selected.Name, priority, qty, bin, setBin, setQty, setSelected, setPriority);
+                                    }}
+                                >
+                                    Submit
+                                </Button>
+                            </div>
+                        </div>
+                    </CSSTransition>
                 </>
-            }
-            <div className='p-6 text-white flex w-full'>
+            </TransitionGroup>
+            <div className='p-6 text-white flex w-full z-[2]'>
                 <div className='flex items-around w-full relative justify-around flex-row'>
                     <div className='w-3/5'>
                         <InputLabel htmlFor='item-name' style={{ color: 'white' }}>Item SKU</InputLabel>
@@ -163,6 +167,6 @@ export default function RequestAnItem(){
                     )
                 })}
             </TransitionGroup>
-        </div>
+        </motion.div>
     )
 }
