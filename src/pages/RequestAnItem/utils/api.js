@@ -14,7 +14,6 @@ export const getProducts = async (skuInput, setItems, setLoading) => {
             }
         }
     )
-    console.log(data)
     setLoading(false);
     setItems(data);
     }catch(e){
@@ -52,8 +51,6 @@ export const getProducts = async (skuInput, setItems, setLoading) => {
     setQty(null)
     setSelected(null)
     setPriority(1)
-
-    console.log(data)
     }catch(e){
         console.log(e)
     }

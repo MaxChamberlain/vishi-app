@@ -52,7 +52,7 @@ export const getOverstock = async (setOverstock) => {
 }
 
 
-export const updateItem = async (_id, status) => {
+export const updateItem = async (_id, status, setRequests, setOverstock) => {
   const name = JSON.parse(localStorage.getItem('_vishi:@user_info')).name
   try{
     await axios.post(
@@ -67,7 +67,7 @@ export const updateItem = async (_id, status) => {
             }
         }
     )
-    getRequests()
+    getRequests(setRequests, setOverstock)
   }catch(e){
       console.error(e)
   }

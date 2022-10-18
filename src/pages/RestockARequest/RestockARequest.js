@@ -86,7 +86,7 @@ export default function RestockARequest(){
                                             color='primary'
                                             fullWidth
                                             onClick={() => {
-                                                updateItem(request._id, 'mark-seen')
+                                                updateItem(request._id, 'mark-seen', setRequests, setOverstock)
                                             }}
                                         >MARK AS SEEN</Button>
                                     </div>
@@ -101,7 +101,7 @@ export default function RestockARequest(){
                                             fullWidth
                                             style={{ backgroundColor: '#ff3838' }}
                                             onClick={() => {
-                                                updateItem(request._id, 'mark-unfound')
+                                                updateItem(request._id, 'mark-unfound', setRequests, setOverstock)
                                             }}
                                         >UNFOUND</Button>
                                     </div>
@@ -111,7 +111,7 @@ export default function RestockARequest(){
                                             color='primary'
                                             fullWidth
                                             onClick={() => {
-                                                updateItem(request._id, 'mark-complete')
+                                                updateItem(request._id, 'mark-complete', setRequests, setOverstock)
                                             }}
                                         >COMPLETE</Button>
                                     </div>
@@ -124,7 +124,7 @@ export default function RestockARequest(){
                                             color='primary'
                                             fullWidth
                                             onClick={() => {
-                                                updateItem(request._id, 'clear')
+                                                updateItem(request._id, 'clear', setRequests, setOverstock)
                                             }}
                                         >CLEAR</Button>
                                     </div>
