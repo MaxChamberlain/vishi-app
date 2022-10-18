@@ -2,7 +2,7 @@ const axios = require('axios')
 
 export const updateUserVersion = async () => {
     const _id = JSON.parse(localStorage.getItem('_vishi:@user_info'))._id
-    const version = '1.0.2'
+    const version = process.env.REACT_APP_VERSION
     const { data } = await axios.post(
         process.env.REACT_APP_SERVER_ADDRESS + '/users/updateversion',
         {
