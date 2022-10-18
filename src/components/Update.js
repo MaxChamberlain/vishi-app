@@ -13,6 +13,7 @@ export default function Update(){
                 <div className='text-lg mb-4'>To apply the update, click "OKAY"</div>
                 <div className='text-lg mb-4 font-bold'>Vishi version {process.env.REACT_APP_VERSION} patch notes:</div>
                 <div className='bg-slate-800 p-4'>
+                    <div className='text-lg text-start w-full'>- Fixed a bug causing the home navigation button to not work properly</div>
                     <div className='text-lg text-start w-full'>- Fixed a bug causing the restock page to update slowly</div>
                     <div className='text-lg text-start w-full'>- Added loading feedback to restock page</div>
                     <div className='text-lg text-start w-full'>- Added home screen navigation buttons</div>
