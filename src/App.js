@@ -7,10 +7,12 @@ import Login from "./pages/Login/Login";
 import Barcodes from "./pages/Barcodes/Barcodes";
 import PalletTracker from "./pages/PalletTracker/PalletTracker";
 import Home from "./pages/Home/Home";
+import Update from "./components/Update";
 import { AnimatePresence } from "framer-motion";
 
 function App() {
   const [ loggedIn, setLoggedIn ] = useState(false);
+  const [ showUpdates, setShowUpdates ] = useState(false);
 
   const location = useLocation();
 
@@ -20,6 +22,11 @@ function App() {
       setLoggedIn(true);
       if(location.pathname === '/login' || location.pathname === '/register'){
         window.location.href = '/';
+      }else{
+        const version = userInfo.version;
+        if(!version || version !== process.env.REACT_APP_VERSION){
+          setShowUpdates(true);
+        }
       }
     }else{
       setLoggedIn(false);
@@ -41,6 +48,7 @@ function App() {
         zIndex: -1
       }}></div>
       {location.pathname !== '/login' && location.pathname !== '/register' && <Header />}
+      {showUpdates && location.pathname !== '/login' && location.pathname !== '/register' && <Update />}
       <AnimatePresence exitBeforeEnter>
         <Routes key={location.pathname} >
           <Route path="/login" element={<Login /> } />
