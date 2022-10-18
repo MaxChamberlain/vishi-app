@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { motion } from 'framer-motion';
 const { getRequests, updateItem } = require('./utils/api');
+const logo = require('../../assets/images/logo.png');
 
 export default function RestockARequest(){
     const [ requests, setRequests ] = useState([]);
@@ -21,7 +22,15 @@ export default function RestockARequest(){
     }, [])
 
     if(loading){
-        return <div>Loading...</div>
+        return <div className='w-screen flex justify-center items-center flex-col' style={{ height: 'calc(100vh - 100px)' }}>
+            <img
+                src={logo}
+                className='w-12 h-12 invert animate-ping mb-10'
+            />
+            <div className='text-white text-xl animate-pulse'>
+                Loading...
+            </div>
+        </div>
     }
     return(
         <motion.div 
@@ -135,7 +144,7 @@ export default function RestockARequest(){
                     })}
                 </div>
                 :
-                <div className='text-white absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center text-3xl'>
+                <div className='text-white absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center text-3xl animate-pulse'>
                     Good job, {JSON.parse(localStorage.getItem('_vishi:@user_info')).name.split(' ')[0]}! This queue is empty 🎉
                 </div>
             }
