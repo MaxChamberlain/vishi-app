@@ -18,6 +18,8 @@ export default function Update(){
                     <div className='text-lg text-start w-full'>- Added loading feedback to restock page</div>
                     <div className='text-lg text-start w-full'>- Added home screen navigation buttons</div>
                     <div className='text-lg text-start w-full'>- Added patch notes prompt</div>
+                    <div className='text-lg text-start w-full'>- Changed SKU Print screen to be more intuitive</div>
+                    <div className='text-lg text-start w-full'>- Added sorting to SKU Print screen</div>
                 </div>
                 <div className='w-full mt-5'>
                     <Button

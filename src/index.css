@@ -157,3 +157,7 @@ code {
   transform: translateY(-100px);
   transition: all 0.1s;
 }
+
+.MuiToolbar-root, .MuiSvgIcon-root{
+  color: #fff;
+}

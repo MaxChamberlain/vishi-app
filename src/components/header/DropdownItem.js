@@ -6,7 +6,7 @@ export default function DropdownItem({ title, items, setHovering, hovering }){
     return(
         <div className='w-full'>
             <div 
-                className='h-10 bg-neutral-800 text-white shadow-xl border-x border-neutral-900 flex justify-center items-center p-2 w-full relative'
+                className='h-10 bg-neutral-800 text-white shadow-xl border-x border-neutral-900 flex justify-center items-center p-2 w-full relative z-[999]'
                 onMouseEnter={() => setHovering(was => `${title}/${was.split('/')[1]}`)}
                 onMouseLeave={() => setHovering('null/null')}
             >

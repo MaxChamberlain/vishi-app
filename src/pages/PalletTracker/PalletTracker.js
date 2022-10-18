@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {isMobile} from 'react-device-detect';
-import { Button, Autocomplete, InputLabel, FormControl, TextField, Paper } from '@mui/material'
+import { Button, ButtonGroup, Autocomplete, Badge, FormControl, TextField, Paper } from '@mui/material'
 import { motion } from 'framer-motion';
 
 export default function PalletTracker(){
@@ -142,18 +142,22 @@ export default function PalletTracker(){
             }
         </TransitionGroup>
         {!editing && (['kreilly@shopvitality.com','mchamberlain@shopvitality.com','apafundi@shopvitality.com'].includes(JSON.parse(localStorage.getItem('_vishi:@user_info')).email)) &&
-            <div className='p-2 bg-slate-700 fixed top-28 right-6 text-white cursor-pointer' 
-            onClick={() => {
-                const go = async () => {
-                    const lastEdited = await getEdit()
-                    setConfirmEdit(lastEdited)
-                    if(!lastEdited){
-                        addEdit()
-                    }
-                }
-                go()
-            }}>
-                Start Editing
+            <div className='absolute top-28 right-6 text-white cursor-pointer' >
+                <Button
+                    variant='contained'
+                    onClick={() => {
+                        const go = async () => {
+                            const lastEdited = await getEdit()
+                            setConfirmEdit(lastEdited)
+                            if(!lastEdited){
+                                addEdit()
+                            }
+                        }
+                        go()
+                    }}
+                >
+                    Start Editing
+                </Button>
             </div>
         }
         {loading && <div style={{
@@ -230,35 +234,37 @@ export default function PalletTracker(){
                     `
                 } ago.
             </div>
-            <div style={{
-                padding: 10,
-                backgroundColor: '#1976d2',
-                cursor: 'pointer',
-            }} onClick={() => {
+            <Button
+                variant='contained'
+                color='primary'
+                onClick={() => {
                 insertPallets(usedPallets)
-            }}>Save</div>
-            <div style={{
-                padding: 10,
-                backgroundColor: 'rgb(184, 55, 46)',
-                marginLeft: 10,
-                cursor: 'pointer'
-            }} onClick={stopEdit}>Stop Editing</div>
+            }}>Save</Button>
+            <Button
+                variant='contained'
+                color='primary'
+                onClick={stopEdit}
+                style={{ backgroundColor: 'rgb(184, 55, 46)', marginLeft: 10 }}
+            >Stop Editing</Button>
         </div>}
         <div style={{
             width: '80%',
             padding: 20,
             marginTop: 80,
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-srart',
             color: 'white',
             fontSize: 20,
+            zIndex: 100,
+            position: 'static'
         }}>
-            <FormControl style={{ width: '50%', color: 'white' }}>
+            <FormControl style={{ width: '50%', color: 'white', marginRight: 20 }}>
                 <Autocomplete style={{
                     fontSize: 25,
                     color: 'white',
                     width: '100%',
                 }}
+                    size={'small'}
                     id='sku'
                     includeInputInList
                     options={[...new Set(Object.keys(usedPallets).map(a => 
@@ -282,46 +288,54 @@ export default function PalletTracker(){
                     )}
                     value={filters}
                     renderInput={params => (
-                        <TextField {...params} label={filters || 'SKU'} variant='outlined' style={{ color: 'white', width: '100%' }} defaultValue={filters} value={filters} onChange={e => setFilters(e.target.value.toUpperCase())}/>
+                        <TextField {...params} label={filters || 'SKU'} variant='outlined' style={{ color: 'white', width: '100%'  }} defaultValue={filters} value={filters} onChange={e => setFilters(e.target.value.toUpperCase())} />
                     )}
                     freeSolo
                 />
             </FormControl>
-            {Object.keys(displayedPallets).length > 0 && [['Racks', 'racks'], ['Event Space', 'event'], ['Bay Doors', 'bay']].map(e => {
-                return(
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        fontSize: 20
-                    }}>
-                        <div style={{
-                            cursor: 'pointer',
-                            padding: 10,
-                            textDecoration: page === e[1] ? 'underline' : 'none'
-                        }}
-                        onClick={() => setPage(e[1])}>
-                            {e[0]}
-                        </div>
-                        <div style={{
-                            width: 25,
-                            height: 25,
-                            borderRadius: 20,
-                            fontSize: 15,
-                            marginTop: -10
-                        }}>
-                            {e[1] === 'racks' ?
-                                ((Object.keys(Object.keys(displayedPallets).map(e => displayedPallets[e]).flat(2)[0]).map(e => Object.keys(Object.keys(displayedPallets).map(e => displayedPallets[e]).flat(2)[0][e])).flat().filter(e => !e.includes('ROW') && !e.includes('BAY')) || [])?.length || 0) :
-                            e[1] === 'event' ?
-                                ((Object.keys(displayedPallets).map(e => displayedPallets[e]).flat(2).filter(e => Object.keys(e).some(x => parseInt(x) < 200 && parseInt(x) > 100)).map(e => Object.keys(e)).flat() || [])?.length || 0) :
-                            e[1] === 'bay' ?
-                            ((Object.keys(displayedPallets).map(e => displayedPallets[e]).flat(2).filter(e => Object.keys(e).some(x => parseInt(x) < 300 && parseInt(x) > 200)).map(e => Object.keys(e)).flat() || [])?.length || 0) :
-                            0
-                            }
-                        </div>
-                    </div>
-                )
-            })}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'flex-start',
+                width: '100%',
+                alignItems: 'center',
+                fontSize: 20
+            }}>
+                <ButtonGroup>
+                    <Badge
+                        badgeContent={Object.keys(displayedPallets).length > 0 ? ((Object.keys(Object.keys(displayedPallets).map(e => displayedPallets[e]).flat(2)[0]).map(e => Object.keys(Object.keys(displayedPallets).map(e => displayedPallets[e]).flat(2)[0][e])).flat().filter(e => !e.includes('ROW') && !e.includes('BAY')) || [])?.length || 0) : 0}
+                        color='primary'
+                        style={{ marginRight: 30, zIndex: 100 }}
+                    >
+                        <Button
+                            variant='contained'
+                            style={{ backgroundColor: page === 'racks' ? '#dd7000' : 'rgb(46,52,64)' }}
+                            onClick={() => setPage('racks')}
+                        >Racks</Button>
+                    </Badge>
+                    <Badge
+                        badgeContent={Object.keys(displayedPallets).length > 0 ? ((Object.keys(displayedPallets).map(e => displayedPallets[e]).flat(2).filter(e => Object.keys(e).some(x => parseInt(x) < 200 && parseInt(x) > 100)).map(e => Object.keys(e)).flat() || [])?.length || 0) : 0}
+                        color='primary'
+                        style={{ marginRight: 30, zIndex: 100 }}
+                    >
+                        <Button
+                            variant='contained'
+                            style={{ backgroundColor: page === 'event' ? '#dd7000' : 'rgb(46,52,64)' }}
+                            onClick={() => setPage('event')}
+                        >Event Space</Button>
+                    </Badge>
+                    <Badge
+                        badgeContent={Object.keys(displayedPallets).length > 0 ? ((Object.keys(displayedPallets).map(e => displayedPallets[e]).flat(2).filter(e => Object.keys(e).some(x => parseInt(x) < 300 && parseInt(x) > 200)).map(e => Object.keys(e)).flat() || [])?.length || 0) : 0}
+                        color='primary'
+                        style={{ marginRight: 30, zIndex: 100 }}
+                    >
+                        <Button
+                            variant='contained'
+                            style={{ backgroundColor: page === 'bay' ? '#dd7000' : 'rgb(46,52,64)' }}
+                            onClick={() => setPage('bay')}
+                        >Bay Doors</Button>
+                    </Badge>
+                </ButtonGroup>
+            </div>
         </div>
         <div id='content-container-main' style={{
         display: 'flex', 

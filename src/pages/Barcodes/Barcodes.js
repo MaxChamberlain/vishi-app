@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FormControl, InputLabel, MenuItem, Select, Input, Button, FormHelperText } from '@mui/material';
+import { FormControl, InputLabel, Input, Button, FormHelperText } from '@mui/material';
 import { useState, useEffect } from 'react';
 import ItemList from './components/ItemList';
 import PrintWarning from './components/PrintWarning';
@@ -13,8 +13,26 @@ export default function Barcodes(){
     const [ returnItems, setReturnItems ] = useState([]);
     const [ loading, setLoading ] = useState(false);
     const [ selected, setSelected ] = useState([]);
+    const [ printItems, setPrintItems ] = useState([]);
     const [ printing, setPrinting ] = useState(false);
     const [ history, setHistory ] = useState([]);
+
+    useEffect(() => {
+        if(selected.length > 0){
+            setPrintItems(selected.map(e => {
+                return {
+                    sku: returnItems[e].SKU,
+                        barcode: returnItems[e].Barcode,
+                        color: returnItems[e].Name.replace('ARCHIVED - ', '').split(' ').filter(x => x !== returnItems[e].SKU.split('-')[returnItems[e].SKU.split('-').length - 1]).join(' ').split(' - ')[1],
+                        size: returnItems[e].SKU.split('-')[returnItems[e].SKU.split('-').length - 1],
+                        name: returnItems[e].Name.replace('ARCHIVED - ', '').split(' ').filter(x => x !== returnItems[e].SKU.split('-')[returnItems[e].SKU.split('-').length - 1]).join(' ').split(' - ')[0],
+                        archived: returnItems[e].Name.includes('ARCHIVED - '),
+                        location: returnItems[e].Warehouse.split(' / ')[1],
+                        status: returnItems[e].Name.includes('ARCHIVED - ') ? 'Archived' : 'Active'
+                }
+            }))
+        }
+    }, [selected])
 
     return(
         <motion.div 
@@ -28,8 +46,8 @@ export default function Barcodes(){
                 position: 'absolute',
                 left: '-1000vw',
             }}>
-                {selected.length > 0 && 
-                    selected.sort((a, b) => {
+                {printItems.length > 0 && 
+                    printItems.sort((a, b) => {
                         return a.sku.localeCompare(b.sku)
                     } ).map((e, i) => <div key={i} style={{
                         backgroundColor: 'white',
@@ -103,7 +121,7 @@ export default function Barcodes(){
                     </Button>
                 </div>
             </div>
-            {printing && <PrintWarning selected={selected} handlePrint={handlePrint} setSelected={setSelected} setPrinting={setPrinting} />}
+            {printing && <PrintWarning selected={printItems} handlePrint={handlePrint} setSelected={setSelected} setPrinting={setPrinting} />}
             {returnItems.length > 0 && <ItemList selected={selected} data={returnItems} loading={loading} setSelected={setSelected} setHistory={setHistory} />}
             {history.length > 0 && <History data={history} setHistory={setHistory} />}
         </motion.div>
