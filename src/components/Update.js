@@ -15,6 +15,10 @@ export default function Update(){
                 <div className='w-full text-start mt-6 text-xl'>Bug Fixes</div>
                 <div className='bg-slate-800 p-4 w-full'>
                 </div>
+                <div className='w-full text-start mt-6 text-xl'>Restocks Page</div>
+                <div className='bg-slate-800 p-4 w-full'>
+                    <div className='text-lg text-start w-full'>- Added ability to undo changes</div>
+                </div>
                 <div className='w-full text-start mt-6 text-xl'>General Additions</div>
                 <div className='bg-slate-800 p-4 w-full'>
                     <div className='text-lg text-start w-full'>- Added home screen navigation buttons</div>

@@ -40,7 +40,7 @@ export default function ItemDetails({ itemDetails, setItemDetails, overstock }){
                                 }}
                                 type='number'
                                 style={{
-                                    width: 110,
+                                    width: '100%',
                                 }}
                                 autoFocus
                             />
