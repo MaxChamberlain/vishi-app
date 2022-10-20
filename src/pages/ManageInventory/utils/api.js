@@ -104,3 +104,33 @@ export const changeItem = async (Barcode, price, setItemDetails) => {
         alert('Error updating item')
     }
 }
+
+export const getOverstock = async (setOverstock) => {
+    const { data } = await axios.post(
+        process.env.REACT_APP_SERVER_ADDRESS + '/pallets/getall',
+        {},
+        {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+    )
+    let pallets = [] 
+    Object.keys(data[0].pallets).forEach(row => {
+      Object.keys(data[0].pallets[row], row).forEach(slot => {
+        Object.keys(data[0].pallets[row][slot]).forEach(side => {
+         data[0].pallets[row][slot][side].items.forEach(item => {
+          if(!pallets.find(e => e.item === item && e.position === `${row}${side === 'Ground' ? '' : side} - ${parseInt(slot)}${side === 'Ground' ? '' : '/' + (parseInt(slot) + 1)}`)){
+            pallets.push({
+              item: item,
+              color: data[0].pallets[row][slot][side].color,
+              position: `${row}${side === 'Ground' ? '' : side} - ${parseInt(slot)}${side === 'Ground' ? '' : '/' + (parseInt(slot) + 1)}`
+            })
+          }
+         })
+        })
+      })
+    })
+  
+    setOverstock(pallets)
+  }

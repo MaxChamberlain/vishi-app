@@ -1,8 +1,8 @@
 import { DataGrid } from '@mui/x-data-grid';
-const { getItemDetails } = require('../utils/api.js');
+const { getItemDetails, getOverstock } = require('../utils/api.js');
 require('../style.css')
 
-export default function ItemList({ data, setLoading, setItemDetails }){
+export default function ItemList({ data, setLoading, setItemDetails, setOverstock }){
     return(
         <div className='w-full flex flex-col justify-center items-center text-white mt-28'>
             <DataGrid 
@@ -49,5 +49,6 @@ export default function ItemList({ data, setLoading, setItemDetails }){
 
     function handleClick(e){
         getItemDetails(e.row.barcode, setItemDetails, setLoading)
+        getOverstock(setOverstock)
     }
 }

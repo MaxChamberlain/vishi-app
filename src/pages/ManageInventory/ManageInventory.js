@@ -13,6 +13,7 @@ export default function ManageInventory(){
     const [ loading, setLoading ] = useState(false);
     const [ selected, setSelected ] = useState([]);
     const [ itemDetails, setItemDetails ] = useState(null);
+    const [ overstock, setOverstock ] = useState(null);
 
     return(
         <motion.div 
@@ -64,9 +65,9 @@ export default function ManageInventory(){
                     Loading...
                 </div>
             </div>}
-            {itemDetails && <ItemDetails itemDetails={itemDetails} setItemDetails={setItemDetails} />}
+            {itemDetails && <ItemDetails overstock={overstock} itemDetails={itemDetails} setItemDetails={setItemDetails} />}
             <AddItems />
-            {returnItems.length > 0 && <ItemList selected={selected} data={returnItems} loading={loading} setSelected={setSelected} setLoading={setLoading} setItemDetails={setItemDetails} />}
+            {returnItems.length > 0 && <ItemList selected={selected} data={returnItems} loading={loading} setSelected={setSelected} setLoading={setLoading} setItemDetails={setItemDetails} setOverstock={setOverstock} />}
         </motion.div>
     )
 }

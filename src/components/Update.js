@@ -14,8 +14,6 @@ export default function Update(){
                 <div className='text-lg mb-4 font-bold'>Vishi version {process.env.REACT_APP_VERSION} patch notes:</div>
                 <div className='w-full text-start mt-6 text-xl'>Bug Fixes</div>
                 <div className='bg-slate-800 p-4 w-full'>
-                    <div className='text-lg text-start w-full'>- Fixed a bug causing the home navigation button to not work properly</div>
-                    <div className='text-lg text-start w-full'>- Fixed a bug causing the restock page to update slowly</div>
                 </div>
                 <div className='w-full text-start mt-6 text-xl'>General Additions</div>
                 <div className='bg-slate-800 p-4 w-full'>
@@ -24,10 +22,7 @@ export default function Update(){
                     <div className='text-lg text-start w-full'>- Added an inventory manager for VISHI'S INVENTORY (does not affect shiphero)</div>
                     <div className='text-lg text-start w-full'>- Added ability to add items to vishi within this page (does not affect shiphero)</div>
                     <div className='text-lg text-start w-full'>- Added ability to change the price details of a Vishi item within this page (does not affect shiphero)</div>
-                </div>
-                <div className='w-full text-start mt-6 text-xl'>Restock Page</div>
-                <div className='bg-slate-800 p-4 w-full'>
-                    <div className='text-lg text-start w-full'>- Added loading feedback to restock page</div>
+                    <div className='text-lg text-start w-full'>- Added ability to see overstock locations of selected item within this page</div>
                 </div>
                 <div className='w-full text-start mt-6 text-xl'>Barcode Printing</div>
                 <div className='bg-slate-800 p-4 w-full'>

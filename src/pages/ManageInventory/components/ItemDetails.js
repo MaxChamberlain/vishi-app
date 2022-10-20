@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FormControl, Input, TextField, InputLabel, Button, FormHelperText, ButtonGroup } from '@mui/material';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import MapIcon from '@mui/icons-material/Map';
+import { LinearProgress, TextField, Button, ButtonGroup, List, ListItem, ListItemText, ListItemButton, Box, ListItemIcon } from '@mui/material';
 const { changeItem } = require('../utils/api.js');
 
-export default function ItemDetails({ itemDetails, setItemDetails }){
+export default function ItemDetails({ itemDetails, setItemDetails, overstock }){
     const [ changing, setChanging ] = useState(false);
     return(
         <div>
@@ -24,7 +26,7 @@ export default function ItemDetails({ itemDetails, setItemDetails }){
                     <br />
                     <Button variant='contained' fullWidth disabled style={{ color: 'white', borderBottom: '1px solid rgba(0,0,0,0.2)', fontSize: 18, backgroundColor: 'rgba(0,0,0,0.2)', padding: '0 30px' }} className='text-2xl'>Location <br /> {itemDetails.Warehouse.split(' / ')[1]} </Button>
                     <div className='w-full flex justify-around'>
-                        <ButtonGroup>
+                        <ButtonGroup fullWidth >
                             <Button variant='contained' disabled style={{ color: 'white', fontSize: 18, backgroundColor: 'rgba(0,0,0,0.2)', padding: '0 30px' }} className='text-2xl'>Size <br /> {itemDetails.SKU.split('-')[itemDetails.SKU.split('-').length - 1]}</Button>
                             <Button variant='contained' disabled style={{ color: 'white', fontSize: 18, backgroundColor: 'rgba(0,0,0,0.2)', padding: '0 30px' }} className='text-2xl'>Color <br /> {itemDetails.Name.replace('ARCHIVED - ', '').split(' ').filter(x => x !== itemDetails.SKU.split('-')[itemDetails.SKU.split('-').length - 1]).join(' ').split(' - ')[1]} </Button>
                             {changing === 'price' ? 
@@ -47,6 +49,40 @@ export default function ItemDetails({ itemDetails, setItemDetails }){
                                 Price <br /> ${itemDetails.Price}
                             </Button>}
                         </ButtonGroup>
+                    </div>
+                    <div className='mt-4'>
+                        {overstock ? 
+                        <Box sx={{ width: '100%', bgcolor: 'rgba(0,0,0,0.3)' }}>
+                            <List fullWidth>
+                                <ListItem fullWidth disablePadding>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            <MapIcon />
+                                        </ListItemIcon>
+                                        <ListItemText style={{ width: '100%', textAlign: 'center', paddingRight: 80 }} primary='Locations' />
+                                    </ListItemButton>
+                                </ListItem>
+                                {
+                                overstock
+                                    .filter(ov => ov.item === itemDetails.SKU)
+                                    .map(ov => 
+                                        <ListItem fullWidth disablePadding>
+                                            <ListItemButton>
+                                                <div style={{ marginLeft: 10 }}>→</div>
+                                                <ListItemIcon style={{ paddingLeft: 20 }}>
+                                                    <InventoryIcon />
+                                                </ListItemIcon>
+                                                <ListItemText style={{ width: '100%', textAlign: 'center' }} primary={
+                                                    ov.position.includes('ROW') ? 'Event Row ' + (parseInt(ov.position) - 100) + ' slot ' + (parseInt(ov.position.split('/')[0].split(' - ')[1]) - 100) : ov.position.includes('TempTemp') ? 'Temporary Slot ' + ov.position.split('/')[1] : ov.position.includes('BAY') ? 'Bay Row ' + (parseInt(ov.position) - 200) + ' slot ' + (parseInt(ov.position.split('/')[0].split(' - ')[1]) - 200) : ov.position
+                                                } />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        )
+                                }
+                            </List>
+                        </Box>
+                        :
+                        <LinearProgress />}
                     </div>
                 </div>
             </motion.div>
