@@ -3,14 +3,16 @@ import { FormControl, InputLabel, Input, Button, FormHelperText } from '@mui/mat
 import { useState, useEffect } from 'react';
 import ItemList from './components/ItemList';
 import AddItems from './components/AddItems';
+import ItemDetails from './components/ItemDetails';
 const { getProducts } = require('./utils/api.js');
+const logo = require('../../assets/images/logo.png');
 
 export default function ManageInventory(){
     const [ inputSku, setInputSku ] = useState('');
     const [ returnItems, setReturnItems ] = useState([]);
     const [ loading, setLoading ] = useState(false);
     const [ selected, setSelected ] = useState([]);
-    const [ empty, setEmpty ] = useState(false);
+    const [ itemDetails, setItemDetails ] = useState(null);
 
     return(
         <motion.div 
@@ -48,13 +50,23 @@ export default function ManageInventory(){
                             style={{height: '100%', width: '80%'}}
                             color='primary'
                             fullWidth
-                            onClick={() => (inputSku.includes('-')) ? getProducts(inputSku, setReturnItems, setLoading, setEmpty) : alert('Please enter a valid SKU. (Must contain a dash)')}
+                            onClick={() => (inputSku.includes('-')) ? getProducts(inputSku, setReturnItems, setLoading) : alert('Please enter a valid SKU. (Must contain a dash)')}
                         >Search</Button>
                     </div>
                 </div>
             </div>
+            {loading && <div className='w-screen flex justify-center items-center flex-col' style={{ height: 'calc(100vh - 100px)' }}>
+                <img
+                    src={logo}
+                    className='w-12 h-12 invert animate-ping mb-10'
+                />
+                <div className='text-white text-xl animate-pulse'>
+                    Loading...
+                </div>
+            </div>}
+            {itemDetails && <ItemDetails itemDetails={itemDetails} setItemDetails={setItemDetails} />}
             <AddItems />
-            {returnItems.length > 0 && <ItemList selected={selected} data={returnItems} loading={loading} setSelected={setSelected} />}
+            {returnItems.length > 0 && <ItemList selected={selected} data={returnItems} loading={loading} setSelected={setSelected} setLoading={setLoading} setItemDetails={setItemDetails} />}
         </motion.div>
     )
 }

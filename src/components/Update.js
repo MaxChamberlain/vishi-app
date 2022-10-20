@@ -22,7 +22,8 @@ export default function Update(){
                     <div className='text-lg text-start w-full'>- Added home screen navigation buttons</div>
                     <div className='text-lg text-start w-full'>- Added patch notes prompt</div>
                     <div className='text-lg text-start w-full'>- Added an inventory manager for VISHI'S INVENTORY (does not affect shiphero)</div>
-                    <div className='text-lg text-start w-full'>- Added ability to add items to vishi within this page</div>
+                    <div className='text-lg text-start w-full'>- Added ability to add items to vishi within this page (does not affect shiphero)</div>
+                    <div className='text-lg text-start w-full'>- Added ability to change the price details of a Vishi item within this page (does not affect shiphero)</div>
                 </div>
                 <div className='w-full text-start mt-6 text-xl'>Restock Page</div>
                 <div className='bg-slate-800 p-4 w-full'>

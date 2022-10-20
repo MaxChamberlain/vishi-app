@@ -59,3 +59,48 @@ export const addItems = async (sku, name, location, price, sizes, barcodes) => {
         }
     })
 }
+
+export const getItemDetails = async (upc, setItemDetails, setLoading) => {
+    try{
+        setLoading(true);
+        const { data } = await axios.post(
+            process.env.REACT_APP_SERVER_ADDRESS + '/inventory_snapshot/getbyupc', 
+            {
+                Barcode: upc,
+            },
+            {
+                headers:{
+                    'Content-type': 'application/json'
+                }
+            }
+        )
+        setItemDetails(data);
+        setLoading(false);
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export const changeItem = async (Barcode, price, setItemDetails) => {
+    const Price = price.includes('.') ? price : price + '.00';
+    try{
+        const { data } = await axios.post(
+            process.env.REACT_APP_SERVER_ADDRESS + '/inventory_snapshot/update_item', 
+            {
+                Barcode: Barcode,
+                Price: Price,
+            },
+            {
+                headers:{
+                    'Content-type': 'application/json'
+                }
+            }
+        )
+        console.log(data)
+        alert('Item updated successfully')
+        setItemDetails(data)
+    }catch(e){
+        console.log(e)
+        alert('Error updating item')
+    }
+}

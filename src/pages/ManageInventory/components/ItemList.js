@@ -1,7 +1,8 @@
 import { DataGrid } from '@mui/x-data-grid';
+const { getItemDetails } = require('../utils/api.js');
 require('../style.css')
 
-export default function ItemList({ selected, data, loading, setSelected }){
+export default function ItemList({ data, setLoading, setItemDetails }){
     return(
         <div className='w-full flex flex-col justify-center items-center text-white mt-28'>
             <DataGrid 
@@ -40,13 +41,13 @@ export default function ItemList({ selected, data, loading, setSelected }){
                     color: 'white',
                     width: '95%',
                 }}
+                onRowClick={handleClick}
+                isCellEditable={() => false}
             />
         </div>
     )
 
     function handleClick(e){
-        if(e.field === 'current'){
-            console.log(e.row)
-        }
+        getItemDetails(e.row.barcode, setItemDetails, setLoading)
     }
 }
