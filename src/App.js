@@ -8,6 +8,7 @@ import Barcodes from "./pages/Barcodes/Barcodes";
 import PalletTracker from "./pages/PalletTracker/PalletTracker";
 import Home from "./pages/Home/Home";
 import Update from "./components/Update";
+import ManageInventory from "./pages/ManageInventory/ManageInventory";
 import { AnimatePresence } from "framer-motion";
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
           <Route path='/inventory/restocks/view' element={<RestockARequest /> } />
           <Route path='/inventory/barcodes' element={<Barcodes /> } />
           <Route path='/inventory/pallets' element={<PalletTracker /> } />
+          <Route path='/inventory/manage' element={<ManageInventory /> } />
         </Routes>
       </AnimatePresence>
     </div>

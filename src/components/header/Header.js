@@ -45,6 +45,12 @@ export default function Header(){
                         items: [
                             {title: 'Pallet Tracker', link: '/inventory/pallets'},
                         ]
+                    },
+                    {
+                        title: 'Inventory',
+                        items: [
+                            {title: 'Manage Vishi Inventory', link: '/inventory/manage'},
+                        ]
                     }
                 ]}
             />

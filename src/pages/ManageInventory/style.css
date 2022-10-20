@@ -1,0 +1,27 @@
+
+table{
+    border-collapse: collapse;
+    border: 1px solid #fff;
+    align-items: center;
+    font-size: 25px;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #fff;
+    vertical-align: middle;
+    align-items: center;
+}
+
+th input[placeholder='SKU']{
+    border: none;
+    font-size: 25px;
+    height: '100%'
+}
+
+@media print {
+    .logo-top-image {
+        page-break-before: always;
+    }
+}

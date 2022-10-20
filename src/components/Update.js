@@ -12,12 +12,24 @@ export default function Update(){
                 <div className='text-2xl font-bold mb-4'>Vishi has been updated!</div>
                 <div className='text-lg mb-4'>To apply the update, click "OKAY"</div>
                 <div className='text-lg mb-4 font-bold'>Vishi version {process.env.REACT_APP_VERSION} patch notes:</div>
-                <div className='bg-slate-800 p-4'>
+                <div className='w-full text-start mt-6 text-xl'>Bug Fixes</div>
+                <div className='bg-slate-800 p-4 w-full'>
                     <div className='text-lg text-start w-full'>- Fixed a bug causing the home navigation button to not work properly</div>
                     <div className='text-lg text-start w-full'>- Fixed a bug causing the restock page to update slowly</div>
-                    <div className='text-lg text-start w-full'>- Added loading feedback to restock page</div>
+                </div>
+                <div className='w-full text-start mt-6 text-xl'>General Additions</div>
+                <div className='bg-slate-800 p-4 w-full'>
                     <div className='text-lg text-start w-full'>- Added home screen navigation buttons</div>
                     <div className='text-lg text-start w-full'>- Added patch notes prompt</div>
+                    <div className='text-lg text-start w-full'>- Added an inventory manager for VISHI'S INVENTORY (does not affect shiphero)</div>
+                    <div className='text-lg text-start w-full'>- Added ability to add items to vishi within this page</div>
+                </div>
+                <div className='w-full text-start mt-6 text-xl'>Restock Page</div>
+                <div className='bg-slate-800 p-4 w-full'>
+                    <div className='text-lg text-start w-full'>- Added loading feedback to restock page</div>
+                </div>
+                <div className='w-full text-start mt-6 text-xl'>Barcode Printing</div>
+                <div className='bg-slate-800 p-4 w-full'>
                     <div className='text-lg text-start w-full'>- Changed SKU Print screen to be more intuitive</div>
                     <div className='text-lg text-start w-full'>- Added sorting to SKU Print screen</div>
                 </div>

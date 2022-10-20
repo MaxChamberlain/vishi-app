@@ -41,6 +41,9 @@ export default function Home(){
                     <div className='cursor-pointer p-4 border-slate-800 border-b-2' onClick={() => navigate('/inventory/barcodes')}>
                         Print Barcodes
                     </div>
+                    <div className='cursor-pointer p-4 border-slate-800 border-b-2' onClick={() => navigate('/inventory/manage')}>
+                        Manage Vishi Inventory
+                    </div>
                     <div className='cursor-pointer p-4' onClick={() => navigate('/inventory/pallets')}>
                         Pallet Tracker
                     </div>
