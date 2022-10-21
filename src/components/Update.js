@@ -22,13 +22,13 @@ export default function Update(){
                     <div className='text-lg text-start w-full'>- Added ability to change the price details of a Vishi item within this page (does not affect shiphero)</div>
                     <div className='text-lg text-start w-full'>- Added ability to see overstock locations of selected item within this page</div>
                 </div>
-                <div className='w-full text-start mt-6 text-xl'>Restocks Page</div>
+                <div className='w-full text-start mt-6 text-xl font-bold'>Restocks Page</div>
                 <div className='bg-slate-800 p-4 w-full'>
                     <div className='text-lg text-start w-full'>- Added ability to undo changes</div>
-                    <div className='text-lg text-start w-full'>- Added loading feedback to status change of a card</div>
+                    <div className='text-lg text-start w-full font-bold'>- Added loading feedback to status change of a card</div>
                 </div>
-                <div className='w-full text-start mt-6 text-xl font-bold'>Barcode Printing</div>
-                <div className='bg-slate-800 p-4 w-full font-bold'>
+                <div className='w-full text-start mt-6 text-xl'>Barcode Printing</div>
+                <div className='bg-slate-800 p-4 w-full'>
                     <div className='text-lg text-start w-full'>- Added ability to keep selection across searches</div>
                     <div className='text-lg text-start w-full'>- Added "Clear Selection" Button"</div>
                 </div>
