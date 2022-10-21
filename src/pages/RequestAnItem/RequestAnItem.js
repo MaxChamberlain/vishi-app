@@ -2,6 +2,7 @@ import { Input, InputLabel, FormHelperText, Button, FormControl, Select, MenuIte
 import { useState, useEffect } from 'react';
 import { TransitionGroup, CSSTransition, Transition } from 'react-transition-group';
 import { motion } from 'framer-motion';
+import { isMobile } from 'react-device-detect';
 const { getProducts, submitRequest } = require('./utils/api.js');
 
 export default function RequestAnItem(){
@@ -126,6 +127,7 @@ export default function RequestAnItem(){
                                 if(e.key === 'Enter'){
                                     setLoading(true);
                                     getProducts(inputSku, setItems, setLoading);
+                                    e.target.blur();
                                 }
                             }}
                         />
@@ -143,7 +145,7 @@ export default function RequestAnItem(){
                     </div>
                 </div>
             </div>
-            <TransitionGroup component='div' className='flex flex-col overflow-scroll' id='list-items' style={{ width: '90%', margin: 'auto', height: height - document.getElementById('list-items')?.offsetTop || 0 }}>
+            <TransitionGroup component='div' className='flex flex-col overflow-scroll' id='list-items' style={{ width: '90%', margin: 'auto', height: isMobile ? (height - 200) : (height - document.getElementById('list-items')?.offsetTop || 0) }}>
                 {items && items.map((item, index) => {
                     return(
                         <CSSTransition key={item + index} timeout={500} classNames='request-pull-item'>

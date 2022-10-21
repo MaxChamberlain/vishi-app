@@ -342,7 +342,7 @@ export default function PalletTracker(){
         justifyContent: 'flex-start', 
         alignItems: 'flex-start',
         width: '100vw',
-        height: `calc(100vh - ${isMobile ? 420 : 360}px)`,
+        height: `calc(100vh - 360px)`,
         overflow: 'auto',
         paddingBottom: 20
         }}>

@@ -3,7 +3,7 @@ const { updateUserVersion } = require('../utils/user.js');
 
 export default function Update(){
     return(
-        <div className='absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center z-[9998]'>
+        <div className='absolute top-0 left-0 right-0 bottom-0 flex justify-center items-start z-[9998]'>
             <div
                 className='absolute top-0 left-0 right-0 bottom-0'
                 style={{ backgroundColor: 'rgba(0,0,0,0.2)' }}
@@ -17,6 +17,7 @@ export default function Update(){
                 </div>
                 <div className='w-full text-start mt-6 text-xl'>General Additions</div>
                 <div className='bg-slate-800 p-4 w-full'>
+                    <div className='text-lg text-start w-full'>- Changed mobile design to better mimic a native application</div>
                     <div className='text-lg text-start w-full'>- Added an inventory manager for VISHI'S INVENTORY (does not affect shiphero)</div>
                     <div className='text-lg text-start w-full'>- Added ability to add items to vishi within this page (does not affect shiphero)</div>
                     <div className='text-lg text-start w-full'>- Added ability to change the price details of a Vishi item within this page (does not affect shiphero)</div>
