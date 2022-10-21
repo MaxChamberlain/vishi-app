@@ -55,6 +55,12 @@ export const getOverstock = async (setOverstock) => {
 export const updateItem = async (_id, status, setRequests, setOverstock) => {
   const name = JSON.parse(localStorage.getItem('_vishi:@user_info')).name
   try{
+    setRequests(was => {
+      if(was.new.find(e => e._id === _id)){
+        was.new.find(e => e._id === _id).isLoading = true
+      }
+      return was
+    })
     await axios.post(
         process.env.REACT_APP_SERVER_ADDRESS + '/requests/' + status,
         {

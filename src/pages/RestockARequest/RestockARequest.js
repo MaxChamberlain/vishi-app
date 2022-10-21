@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Button, Snackbar, Alert } from '@mui/material';
+import { Button, Snackbar, Alert, LinearProgress } from '@mui/material';
 import { motion } from 'framer-motion';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 const { getRequests, updateItem } = require('./utils/api');
 const logo = require('../../assets/images/logo.png');
 
@@ -107,63 +108,74 @@ export default function RestockARequest(){
                                     }}>
                                         {overstock && overstock.filter(ov => ov.item === request.sku).map(ov => <div>{ov.position.includes('ROW') ? 'Event Row ' + (parseInt(ov.position) - 100) + ' slot ' + (parseInt(ov.position.split('/')[0].split(' - ')[1]) - 100) : ov.position.includes('TempTemp') ? 'Temporary Slot ' + ov.position.split('/')[1] : ov.position.includes('BAY') ? 'Bay Row ' + (parseInt(ov.position) - 200) + ' slot ' + (parseInt(ov.position.split('/')[0].split(' - ')[1]) - 200) : ov.position}</div>)}
                                     </div>
-                                    {request.status === 'open' ?
+                                    <TransitionGroup component='div'>
+                                        <CSSTransition key={request.status} timeout={300} classNames='fade'>
+                                                {request.isLoading ?
+                                                <div className='flex justify-around mt-4 mb-4 w-full absolute bottom-0 right-0 left-0 pb-2'>
+                                                    <div style={{ width: '96%' }}>
+                                                        <LinearProgress />
+                                                    </div>
+                                                </div>
+                                                :
+                                                request.status === 'open' ?
 
-                                    <div className='flex justify-around mt-8 w-full absolute bottom-0 right-0 left-0 pb-2'>
-                                        <div style={{ width: '96%' }}>
-                                            <Button 
-                                                variant='contained'
-                                                color='primary'
-                                                fullWidth
-                                                onClick={() => {
-                                                    updateItem(request._id, 'mark-seen', setRequests, setOverstock)
-                                                    setSnackbar(['Marked as seen', request._id])
-                                                }}
-                                            >MARK AS SEEN</Button>
-                                        </div>
-                                    </div>
-                                    :
-                                    request.status === 'seen' ?
-                                    <div className='flex justify-around mt-8 w-full absolute bottom-0 right-0 left-0 pb-2'>
-                                        <div style={{ width: '48%' }}>
-                                            <Button 
-                                                variant='contained'
-                                                color='primary'
-                                                fullWidth
-                                                style={{ backgroundColor: '#ff3838' }}
-                                                onClick={() => {
-                                                    updateItem(request._id, 'mark-unfound', setRequests, setOverstock)
-                                                    setSnackbar(['Marked as unfound', request._id, 'mark-seen'])
-                                                }}
-                                            >UNFOUND</Button>
-                                        </div>
-                                        <div style={{ width: '48%' }}>
-                                            <Button 
-                                                variant='contained'
-                                                color='primary'
-                                                fullWidth
-                                                onClick={() => {
-                                                    updateItem(request._id, 'mark-complete', setRequests, setOverstock)
-                                                    setSnackbar(['Marked as complete', request._id, 'mark-seen'])
-                                                }}
-                                            >COMPLETE</Button>
-                                        </div>
-                                    </div>
-                                    :
-                                    <div className='flex justify-around mt-8 w-full absolute bottom-0 right-0 left-0 pb-2'>
-                                        <div style={{ width: '96%' }}>
-                                            <Button 
-                                                variant='contained'
-                                                color='primary'
-                                                fullWidth
-                                                onClick={() => {
-                                                    updateItem(request._id, 'clear', setRequests, setOverstock)
-                                                    setSnackbar(['Cleared', request._id, request.status === 'complete' ? 'mark-complete' : 'mark-unfound'])
-                                                }}
-                                            >CLEAR</Button>
-                                        </div>
-                                    </div>
-                                }
+                                                <div className='flex justify-around mt-8 w-full absolute bottom-0 right-0 left-0 pb-2'>
+                                                    <div style={{ width: '96%' }}>
+                                                        <Button 
+                                                            variant='contained'
+                                                            color='primary'
+                                                            fullWidth
+                                                            onClick={() => {
+                                                                updateItem(request._id, 'mark-seen', setRequests, setOverstock)
+                                                                setSnackbar(['Marked as seen', request._id])
+                                                            }}
+                                                        >MARK AS SEEN</Button>
+                                                    </div>
+                                                </div>
+                                                :
+                                                request.status === 'seen' ?
+                                                <div className='flex justify-around mt-8 w-full absolute bottom-0 right-0 left-0 pb-2'>
+                                                    <div style={{ width: '48%' }}>
+                                                        <Button 
+                                                            variant='contained'
+                                                            color='primary'
+                                                            fullWidth
+                                                            style={{ backgroundColor: '#ff3838' }}
+                                                            onClick={() => {
+                                                                updateItem(request._id, 'mark-unfound', setRequests, setOverstock)
+                                                                setSnackbar(['Marked as unfound', request._id, 'mark-seen'])
+                                                            }}
+                                                        >UNFOUND</Button>
+                                                    </div>
+                                                    <div style={{ width: '48%' }}>
+                                                        <Button 
+                                                            variant='contained'
+                                                            color='primary'
+                                                            fullWidth
+                                                            onClick={() => {
+                                                                updateItem(request._id, 'mark-complete', setRequests, setOverstock)
+                                                                setSnackbar(['Marked as complete', request._id, 'mark-seen'])
+                                                            }}
+                                                        >COMPLETE</Button>
+                                                    </div>
+                                                </div>
+                                                :
+                                                <div className='flex justify-around mt-8 w-full absolute bottom-0 right-0 left-0 pb-2'>
+                                                    <div style={{ width: '96%' }}>
+                                                        <Button 
+                                                            variant='contained'
+                                                            color='primary'
+                                                            fullWidth
+                                                            onClick={() => {
+                                                                updateItem(request._id, 'clear', setRequests, setOverstock)
+                                                                setSnackbar(['Cleared', request._id, request.status === 'complete' ? 'mark-complete' : 'mark-unfound'])
+                                                            }}
+                                                        >CLEAR</Button>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </CSSTransition>
+                                    </TransitionGroup>
                                 </div>
                             </>
                         )

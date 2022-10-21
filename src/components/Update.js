@@ -25,6 +25,7 @@ export default function Update(){
                 <div className='w-full text-start mt-6 text-xl'>Restocks Page</div>
                 <div className='bg-slate-800 p-4 w-full'>
                     <div className='text-lg text-start w-full'>- Added ability to undo changes</div>
+                    <div className='text-lg text-start w-full'>- Added loading feedback to status change of a card</div>
                 </div>
                 <div className='w-full text-start mt-6 text-xl font-bold'>Barcode Printing</div>
                 <div className='bg-slate-800 p-4 w-full font-bold'>
