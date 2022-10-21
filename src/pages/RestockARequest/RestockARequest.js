@@ -40,7 +40,7 @@ export default function RestockARequest(){
             exit={{opacity: 0}}
             transition={{duration: 0.3}}
         >
-            <Snackbar open={snackbar.length > 0} autoHideDuration={6000}>
+            <Snackbar open={snackbar.length > 0} autoHideDuration={6000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                 <Alert severity="info" style={{ backgroundColor: '#1E79D3', color: 'white' }}>
                     <div className='w-full h-full items-center flex justify-between p-0'>
                         {snackbar[0]}

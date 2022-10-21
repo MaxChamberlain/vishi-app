@@ -15,23 +15,21 @@ export default function Update(){
                 <div className='w-full text-start mt-6 text-xl'>Bug Fixes</div>
                 <div className='bg-slate-800 p-4 w-full'>
                 </div>
-                <div className='w-full text-start mt-6 text-xl'>Restocks Page</div>
-                <div className='bg-slate-800 p-4 w-full'>
-                    <div className='text-lg text-start w-full'>- Added ability to undo changes</div>
-                </div>
                 <div className='w-full text-start mt-6 text-xl'>General Additions</div>
                 <div className='bg-slate-800 p-4 w-full'>
-                    <div className='text-lg text-start w-full'>- Added home screen navigation buttons</div>
-                    <div className='text-lg text-start w-full'>- Added patch notes prompt</div>
                     <div className='text-lg text-start w-full'>- Added an inventory manager for VISHI'S INVENTORY (does not affect shiphero)</div>
                     <div className='text-lg text-start w-full'>- Added ability to add items to vishi within this page (does not affect shiphero)</div>
                     <div className='text-lg text-start w-full'>- Added ability to change the price details of a Vishi item within this page (does not affect shiphero)</div>
                     <div className='text-lg text-start w-full'>- Added ability to see overstock locations of selected item within this page</div>
                 </div>
-                <div className='w-full text-start mt-6 text-xl'>Barcode Printing</div>
+                <div className='w-full text-start mt-6 text-xl'>Restocks Page</div>
                 <div className='bg-slate-800 p-4 w-full'>
-                    <div className='text-lg text-start w-full'>- Changed SKU Print screen to be more intuitive</div>
-                    <div className='text-lg text-start w-full'>- Added sorting to SKU Print screen</div>
+                    <div className='text-lg text-start w-full'>- Added ability to undo changes</div>
+                </div>
+                <div className='w-full text-start mt-6 text-xl font-bold'>Barcode Printing</div>
+                <div className='bg-slate-800 p-4 w-full font-bold'>
+                    <div className='text-lg text-start w-full'>- Added ability to keep selection across searches</div>
+                    <div className='text-lg text-start w-full'>- Added "Clear Selection" Button"</div>
                 </div>
                 <div className='w-full mt-5'>
                     <Button

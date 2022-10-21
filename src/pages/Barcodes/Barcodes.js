@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { FormControl, InputLabel, Input, Button, FormHelperText } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { FormControl, InputLabel, Input, Button, FormHelperText, Snackbar, Alert } from '@mui/material';
+import { useState } from 'react';
 import ItemList from './components/ItemList';
 import PrintWarning from './components/PrintWarning';
 import Barcode from 'react-barcode/lib/react-barcode';
@@ -13,26 +13,8 @@ export default function Barcodes(){
     const [ returnItems, setReturnItems ] = useState([]);
     const [ loading, setLoading ] = useState(false);
     const [ selected, setSelected ] = useState([]);
-    const [ printItems, setPrintItems ] = useState([]);
     const [ printing, setPrinting ] = useState(false);
     const [ history, setHistory ] = useState([]);
-
-    useEffect(() => {
-        if(selected.length > 0){
-            setPrintItems(selected.map(e => {
-                return {
-                    sku: returnItems[e].SKU,
-                        barcode: returnItems[e].Barcode,
-                        color: returnItems[e].Name.replace('ARCHIVED - ', '').split(' ').filter(x => x !== returnItems[e].SKU.split('-')[returnItems[e].SKU.split('-').length - 1]).join(' ').split(' - ')[1],
-                        size: returnItems[e].SKU.split('-')[returnItems[e].SKU.split('-').length - 1],
-                        name: returnItems[e].Name.replace('ARCHIVED - ', '').split(' ').filter(x => x !== returnItems[e].SKU.split('-')[returnItems[e].SKU.split('-').length - 1]).join(' ').split(' - ')[0],
-                        archived: returnItems[e].Name.includes('ARCHIVED - '),
-                        location: returnItems[e].Warehouse.split(' / ')[1],
-                        status: returnItems[e].Name.includes('ARCHIVED - ') ? 'Archived' : 'Active'
-                }
-            }))
-        }
-    }, [selected])
 
     return(
         <motion.div 
@@ -46,8 +28,8 @@ export default function Barcodes(){
                 position: 'absolute',
                 left: '-1000vw',
             }}>
-                {printItems.length > 0 && 
-                    printItems.sort((a, b) => {
+                {selected.length > 0 && 
+                    selected.sort((a, b) => {
                         return a.sku.localeCompare(b.sku)
                     } ).map((e, i) => <div key={i} style={{
                         backgroundColor: 'white',
@@ -77,7 +59,16 @@ export default function Barcodes(){
                     </div>)
                 }
             </div>
-
+            <Snackbar open={selected.length > 0} autoHideDuration={6000} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+                <Alert severity="info" style={{ backgroundColor: '#1E79D3', color: 'white' }}>
+                        {selected.length} items selected
+                        {<Button color="inherit" size="small" style={{ backgroundColor: 'rgba(0,0,0,0.2)', marginLeft: 10 }} onClick={() => {
+                            setSelected([])
+                        }}>
+                            CLEAR SELECTION
+                        </Button>}
+                </Alert>
+            </Snackbar>
             <div className='p-6 text-white flex bg-slate-800 flex-col' style={{ width: '95%', margin: '2.5%' }}>
                 <div className='flex items-around w-full relative justify-around flex-row'>
                     <div className='w-3/5'>
@@ -121,7 +112,7 @@ export default function Barcodes(){
                     </Button>
                 </div>
             </div>
-            {printing && <PrintWarning selected={printItems} handlePrint={handlePrint} setSelected={setSelected} setPrinting={setPrinting} />}
+            {printing && <PrintWarning selected={selected} handlePrint={handlePrint} setSelected={setSelected} setPrinting={setPrinting} />}
             {returnItems.length > 0 && <ItemList selected={selected} data={returnItems} loading={loading} setSelected={setSelected} setHistory={setHistory} />}
             {history.length > 0 && <History data={history} setHistory={setHistory} />}
         </motion.div>

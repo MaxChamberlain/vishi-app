@@ -8,7 +8,7 @@ export default function ItemList({ selected, data, loading, setSelected, setHist
             <DataGrid 
                 rows={data.map((e, i) => {
                     return {
-                        id: i,
+                        id: e._id,
                         sku: e.SKU,
                         barcode: e.Barcode,
                         color: e.Name.replace('ARCHIVED - ', '').split(' ').filter(x => x !== e.SKU.split('-')[e.SKU.split('-').length - 1]).join(' ').split(' - ')[1],
@@ -22,7 +22,6 @@ export default function ItemList({ selected, data, loading, setSelected, setHist
                 })}
                 onCellClick={handleClick}
                 columns={[
-                    { field: 'id', headerName: 'ID', flex: 90 },
                     { field: 'sku', headerName: 'SKU', flex: 300 },
                     { field: 'name', headerName: 'Name', flex: 150 },
                     { field: 'color', headerName: 'Color', flex: 150 },
@@ -31,10 +30,11 @@ export default function ItemList({ selected, data, loading, setSelected, setHist
                     { field: 'status', headerName: 'Status', flex: 150 },
                     { field: 'history', headerName: 'History', flex: 50 },
                 ]}
+                keepNonExistentRowsSelected
                 sx={{
                   '& .MuiDataGrid-row:hover': {
                     color: 'primary.main',
-                  },
+                  }
                 }}
                 getRowClassName={(params) => `${params.row.status === 'Archived' ? 'text-red-400' : undefined} text-base`}
                 getCellClassName={(params) => `${(params.row.status === 'Archived' && params.field === 'status') ? 'bg-red-500 text-white' : undefined} ${params.field === 'history' ? 'text-white bg-slate-900 cursor-pointer' : undefined} text-base`}
@@ -42,9 +42,29 @@ export default function ItemList({ selected, data, loading, setSelected, setHist
                 pageSize={10}
                 checkboxSelection
                 onSelectionModelChange={(num) => {
-                    setSelected(num)
+                    const oldArr = selected.map(e => e.id)
+                    const newArr = num
+                    const remove = oldArr.filter(x => !newArr.includes(x))
+                    const add = newArr.filter(x => !oldArr.includes(x))
+                    const newSelected = selected.filter(x => !remove.includes(x.id))
+                    add.forEach(e => {
+                        const item = data.find(x => x._id === e)
+                        newSelected.push({
+                            id: item._id,
+                            sku: item.SKU,
+                            barcode: item.Barcode,
+                            color: item.Name.replace('ARCHIVED - ', '').split(' ').filter(x => x !== item.SKU.split('-')[item.SKU.split('-').length - 1]).join(' ').split(' - ')[1],
+                            size: item.SKU.split('-')[item.SKU.split('-').length - 1],
+                            name: item.Name.replace('ARCHIVED - ', '').split(' ').filter(x => x !== item.SKU.split('-')[item.SKU.split('-').length - 1]).join(' ').split(' - ')[0],
+                            archived: item.Name.includes('ARCHIVED - '),
+                            location: item.Warehouse.split(' / ')[1],
+                            status: item.Name.includes('ARCHIVED - ') ? 'Archived' : 'Active',
+                            history: 'History'
+                        })
+                    })
+                    setSelected(newSelected)
                 }}
-                selectionModel={selected}
+                selectionModel={selected.map(e => e.id)}
                 {...data}
                 className='bg-slate-800 text-white'
                 style={{
