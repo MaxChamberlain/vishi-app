@@ -39,9 +39,9 @@ export const addItems = async (sku, name, location, price, sizes, barcodes) => {
             await axios.post(
                 process.env.REACT_APP_SERVER_ADDRESS + '/inventory_snapshot/add_item', 
                 {
-                    SKU: sku.toUpperCase() + '-' + e.toUpperCase(),
-                    Name: name + ' - ' + e,
-                    Warehouse: 'Vitality / ' + location,
+                    SKU: sku.toUpperCase().trim() + ' ' + e.toUpperCase(),
+                    Name: name.trim() + ' ' + e,
+                    Warehouse: 'Vitality / ' + location.trim(),
                     Price: parseFloat(price),
                     Barcode: barcodes[e],
                 },
