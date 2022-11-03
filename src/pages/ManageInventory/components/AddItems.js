@@ -64,7 +64,7 @@ export default function AddItems(){
                                     onChange={(e) => setName(e.target.value)}
                                     value={name}
                                 />
-                                <FormHelperText style={{ color: 'white' }}>Enter without size, e.g. The Cloud Pant Midnight</FormHelperText>
+                                <FormHelperText style={{ color: 'white' }}>Enter without size, e.g. The Cloud Pant - Midnight</FormHelperText>
                             </FormControl>
                         </div>
                     </div>
