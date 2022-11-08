@@ -213,13 +213,12 @@ export default function PalletTracker(){
         { (['kreilly@shopvitality.com','mchamberlain@shopvitality.com','apafundi@shopvitality.com'].includes(JSON.parse(localStorage.getItem('_vishi:@user_info')).email)) && editing && <div style={{
             display: 'flex',
             position: 'absolute',
-            top: 100,
+            top: 20,
             right: 20,
             color: 'white'
         }}>
             <div style={{
                 position: 'fixed',
-                top: 90,
                 left: 20,
                 backgroundColor: new Date(new Date(time) - new Date(pageLoaded)).getMinutes() < 5 ? '#2eb83a' : new Date(new Date(time) - new Date(pageLoaded)).getMinutes() < 20 ? '#cc8d18' : '#b8372e',
                 padding: 10,
