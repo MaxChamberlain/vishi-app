@@ -142,7 +142,7 @@ export default function PalletSpace({ id, loc, items, usedPallets, setUsedPallet
                     })
                 }}
         >
-            <input type='text' placeholder='SKU or Barcode' name='item' id='item-name' autoFocus style={{
+            <input type='text' placeholder='SKU or Barcode' name='item' id='item-name'  className='text-black' autoFocus style={{
                 width: '80%',
                 fontSize: 30
             }} />
